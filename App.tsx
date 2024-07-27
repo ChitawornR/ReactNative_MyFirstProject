@@ -1,23 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
-import AppFooter from './components/AppFooter'
-import AppHeader from './components/AppHeader'
-import AppContent from './components/AppContent'
+import ProfileScreen from './components/ProfileScreen'
 
-const App = () => {
+const App = ():React.JSX.Element => {
   return (
-    <View style={styles.container}>
-      <AppHeader name="Chittaworn Khiri-eksathit" msg="Message from App.tsx"/>
-      <AppContent msg="Message from App.tsx" name="Chittaworn Khiri-eksathit"/>
-      <AppFooter name="Thai-Nichi Institute of Technology"/>
+    <View>
+      <ProfileScreen/>
     </View>
   )
 }
 
 export default App
-
-const styles = StyleSheet.create({
-  container:{
-    flex:1
-  }
-})
