@@ -1,4 +1,4 @@
-import { View, TextInput, StyleSheet, StatusBar } from "react-native";
+import { View, TextInput, StyleSheet, Alert, StatusBar } from "react-native";
 import React, { useState, useEffect } from "react";
 import AppHeader from "./components/AppHeader";
 import AppContent from "./components/AppContent";
@@ -20,10 +20,15 @@ const App = (): React.JSX.Element => {
     console.log(`Fullname has changed to : ${fullname}`);
   }, [fullname]);
 
+  const handleButtonClick = ()=>{
+    Alert.alert("Hello",`Input your fullname : ${fullname}`) 
+  }
+
   return (
     <View style={styles.container}>
       <AppHeader name={fullname} msg={message} />
-      <AppContent msg={message} name={fullname} />
+      {/* <AppContent msg={message} name={fullname} /> */}
+    <AppContent msg={message} onButtonClick={handleButtonClick} />
       <AppFooter title={footerMessage} />
       <View style={stylesPractice.content}>
       <TextInput
