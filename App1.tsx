@@ -9,7 +9,7 @@ const App = () => {
     <View style={styles.container}>
       <AppHeader name="Chittaworn Khiri-eksathit" msg="Message from App.tsx"/>
       <AppContent msg="Message from App.tsx" name="Chittaworn Khiri-eksathit"/>
-      <AppFooter name="Thai-Nichi Institute of Technology"/>
+      <AppFooter title="Thai-Nichi Institute of Technology"/>
     </View>
   )
 }

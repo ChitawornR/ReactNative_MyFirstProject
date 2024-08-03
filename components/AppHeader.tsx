@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import React from "react";
+import { stylesPractice } from "../styles/styles";
 
 type AppHeaderProps = {
   name: string;
@@ -8,29 +9,11 @@ type AppHeaderProps = {
 
 const AppHeader = ({ name, msg }: AppHeaderProps) => {
   return (
-    <View style={styles.header}>
-      <Text style={styles.headerText}>{name}</Text>
-      <Text style={styles.subtitleText}>{msg}</Text>
+    <View style={stylesPractice.header}>
+      <Text style={stylesPractice.headerText}>Input your fullname : {name}</Text>
+      <Text style={stylesPractice.subtitleText}>{msg}</Text>
     </View>
   );
 };
 
 export default AppHeader;
-
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#AEC6CF",
-    padding: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  headerText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#fff",
-  },
-  subtitleText: {
-    fontSize: 16,
-    color: "#fff",
-  },
-});
