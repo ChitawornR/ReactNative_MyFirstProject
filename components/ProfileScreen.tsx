@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, Button } from "react-native";
 import React, { useState } from "react";
 import { styles } from "../styles/styles";
+import Login from "./Login";
 
 const ProfileScreen = (): React.JSX.Element => {
   const [name, setName] = useState("Chittaworn Khirieksathit");
@@ -27,6 +28,7 @@ const ProfileScreen = (): React.JSX.Element => {
           <Button title="CHANGE IMAGE" onPress={handleChangeImage} />
         </View>
       </View>
+      <Login/>
     </View>
   );
 };
