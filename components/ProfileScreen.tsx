@@ -28,7 +28,7 @@ const ProfileScreen = (): React.JSX.Element => {
           <Button title="CHANGE IMAGE" onPress={handleChangeImage} />
         </View>
       </View>
-      <Login/>
+      <Login/> 
     </View>
   );
 };

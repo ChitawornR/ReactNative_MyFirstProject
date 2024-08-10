@@ -1,41 +1,67 @@
 import { Button, StyleSheet, Text, TextInput, View, Alert } from "react-native";
 import React, { useState } from "react";
-import ProfileScreen from "./ProfileScreen";
 
-const Login = () => {
+const Login = (): React.JSX.Element => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const [name,setName] = useState('')
-    const [email,setEmail] = useState('')
+  const validateEmail = (email:string):boolean=>{
+    const recheckEmail = /\S+@\S+\.\S+/
+    return recheckEmail.test(email) // return chk email
+  }
 
-    const handleSummit = ()=>{
-        if(!name){
-            Alert.alert('Alert','Please Enter Name')
-        }else if(!email){
-            Alert.alert('Alert','Please Enter Email')
-        }else{
-            Alert.alert('Alert',"success")
-        }
+  const handleSummit = () => {
+    let errMessage = '';
+    if (!name && !email && !password) {
+      errMessage += "Please Enter Name \nPlease Enter Email \nPlease Enter Password"
+    }
+    if(!validateEmail(email)){
+      errMessage += "Invalid Email Format\n"
+    }
+    if(password.length < 6){
+      errMessage += "Password must be at lease 6 characters\n"
     }
 
+    const alertMessage = !name
+      ? "Please Enter Name"
+      : !email
+      ? "Please Enter Email"
+      : !password
+      ? "Please Enter Password"
+      : "Success";
+
+    if(errMessage){
+      Alert.alert('Error',errMessage,[{ text: "OK" }])
+      return;
+    } 
+    Alert.alert("Alert", alertMessage, [{ text: "OK" }]);
+
+  };
 
   return (
     <View style={styles.container}>
-      <TextInput 
-      style={styles.input} 
-      placeholder="Enter Name" 
-      value={name}
-      onChangeText={setName}
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Name"
+        value={name}
+        onChangeText={setName}
       />
-      <TextInput 
-      style={styles.input} 
-      placeholder="Enter Email" 
-      value={email}
-      onChangeText={setEmail}
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Email"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
       />
-      <Button 
-      title="SUMMIT" 
-      onPress={handleSummit}      
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Password"
+        secureTextEntry={true}
+        value={password}
+        onChangeText={setPassword}
       />
+      <Button title="SUMMIT" onPress={handleSummit} />
     </View>
   );
 };

@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#dddddd",
+    backgroundColor: "white",
   },
   profileImage: {
     borderRadius: 50,
