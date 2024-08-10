@@ -3,13 +3,15 @@ import React from 'react'
 import ProfileScreen from './components/ProfileScreen'
 import FlastListExample from './components/FlastListExample'
 import FlatListcallBackend from './components/FlatListcallBackend'
+import NewsApp from './components/NewsApp'
 
 const App = () => {
   return (
     <View>
       {/* <ProfileScreen/> */}
       {/* <FlastListExample/> */}
-      <FlatListcallBackend/>
+      {/* <FlatListcallBackend/> */}
+      <NewsApp/>
     </View>
   )
 }
