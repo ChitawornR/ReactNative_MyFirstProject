@@ -12,30 +12,33 @@ const Login = (): React.JSX.Element => {
   }
 
   const handleSummit = () => {
-    let errMessage = '';
-    if (!name && !email && !password) {
-      errMessage += "Please Enter Name \nPlease Enter Email \nPlease Enter Password"
+    let errorMessage = "";
+    if (!name) {
+      // Alert.alert("Alert", "Please Enter Name", [{ text: "OK" }]);
+      // return; // break
+      errorMessage += "Please Enter Name\n";
     }
-    if(!validateEmail(email)){
-      errMessage += "Invalid Email Format\n"
+    if (!email) {
+      // Alert.alert("Alert", "Please Enter Email", [{ text: "OK" }]);
+      // return; // break
+      errorMessage += "Please Enter Email\n";
     }
-    if(password.length < 6){
-      errMessage += "Password must be at lease 6 characters\n"
+    else if(!validateEmail(email)){
+      errorMessage += "Invalid Email Format\n"
     }
 
-    const alertMessage = !name
-      ? "Please Enter Name"
-      : !email
-      ? "Please Enter Email"
-      : !password
-      ? "Please Enter Password"
-      : "Success";
+    if (!password) {
+      errorMessage += "Please Enter Password\n";
+    } else if (password.length < 6) {
+      errorMessage += "Password must be at least 6 characters\n";
+    }
 
-    if(errMessage){
-      Alert.alert('Error',errMessage,[{ text: "OK" }])
-      return;
-    } 
-    Alert.alert("Alert", alertMessage, [{ text: "OK" }]);
+    if (errorMessage) {
+      Alert.alert("Error", errorMessage.trim(), [{ text: "OK" }]);
+      return; // break
+    }
+
+    Alert.alert("Alert", "Success", [{ text: "OK" }]);
 
   };
 
