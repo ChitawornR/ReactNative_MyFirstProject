@@ -1,17 +1,23 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import AxiosPostData from "./components/AxiosPostData";
-import WeatherLondon from "./components/WeatherLondon";
-import WeatherBangkok from "./components/WeatherBangkok";
-import ModalExample from "./components/ModalExample";
-import WeatherApp from "./components/WeatherApp";
+import {NavigationContainer} from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
+import HomeScreen from "./screens/HomeScreen";
+import AboutScreen from "./screens/AboutScreen";
+import CreatePostScreen from "./components/CreatePostScreen";
 
-const App = () => {
+const HomeStack = createNativeStackNavigator()
+
+const App = ():React.JSX.Element => {
   return (
-    <View>
-      <WeatherApp/>
-    </View>
+      <NavigationContainer>
+        <HomeStack.Navigator initialRouteName="Home">
+          <HomeStack.Screen name="Home" component={HomeScreen}/>
+          <HomeStack.Screen name="About" component={AboutScreen}/>
+          <HomeStack.Screen name="CreatePost" component={CreatePostScreen}/>
+        </HomeStack.Navigator>
+      </NavigationContainer>
   );
 };
 
