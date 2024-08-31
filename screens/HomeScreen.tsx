@@ -32,7 +32,7 @@ const HomeScreen = ({navigation,route}:any):React.JSX.Element => {
         onPress={goToCreatePost}
         />
         </View>
-      <Text style={styles.postText}>Post: {postText}</Text>
+      <Text style={styles.postText}>Post: <Text style={styles.postContent}>{postText}</Text></Text>
     </View>
   )
 }
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   },
   postContent: {
     color: "blue", // เปลี่ยนสีข้อความที่ถูกส่งกลับมา​
-
     fontWeight: "bold",
   },
 });

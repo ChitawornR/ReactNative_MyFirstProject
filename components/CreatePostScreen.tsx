@@ -5,7 +5,10 @@ const CreatePostScreen = ({navigation}:any) => {
     const [postText,setPostText] = useState('')
 
     const goBackToHomeScreen = ()=>{
-        navigation.navigate('Home',{post:postText})
+        navigation.navigate({
+            name:'Home',
+            params:{post:postText}
+        })
     }
   return (
     <View>
