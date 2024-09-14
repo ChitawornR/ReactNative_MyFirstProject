@@ -12,8 +12,10 @@ import AboutScreen from "./screens/AboutScreen";
 import MenuScreen from "./screens/MenuScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import DetailScreen from "./screens/DetailScreen";
 // import CreatePostScreen from "./components/CreatePostScreen";
 
+// Stack
 const HomeStack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const ProductStack = createNativeStackNavigator()
@@ -61,6 +63,10 @@ function ProductStackScreen() {
       <ProductStack.Screen
         name="Product"
         component={ProductScreen}
+      />
+      <ProductStack.Screen
+        name="Detail"
+        component={DetailScreen}
       />
     </ProductStack.Navigator>
   );
