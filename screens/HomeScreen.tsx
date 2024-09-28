@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, Alert } from "react-native";
+import { View, Button, StyleSheet, Alert } from "react-native";
 import React, { useLayoutEffect } from "react";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
@@ -8,9 +8,15 @@ import {
   HeaderButtons,
   Item,
 } from "react-navigation-header-buttons";
+import { Text } from "@rneui/base"; // Text component from React native base
+import { useAppDispatch, useAppSelector } from "../redux-toolkit/hooks";
+import { logout } from "../services/auth-servise";
+import { selectAuthState, setIsLogin } from "../auth/auth-slice";
 
 const HomeScreen = (): React.JSX.Element => {
   const navigation = useNavigation<any>();
+  const dispath = useAppDispatch()
+  const {profile} = useAppSelector(selectAuthState)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -24,7 +30,10 @@ const HomeScreen = (): React.JSX.Element => {
       ),
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>
-          <Item title="logout" iconName="logout" onPress={()=>Alert.alert("Logout","Close Menu")}/>
+          <Item title="logout" iconName="logout" onPress={async()=>{
+            await logout()
+            dispath(setIsLogin(false))
+          }}/>
         </HeaderButtons>
       ),
     });
@@ -46,7 +55,16 @@ const HomeScreen = (): React.JSX.Element => {
   return (
     <View style={styles.container}>
       <MaterialIcon name="home" size={40} color="pink" />
-      <Text style={styles.header}>HomeScreen</Text>
+      {
+        profile?(
+          <>
+          <Text h3>Welcome {profile.name}</Text>
+          <Text>
+            Email: {profile.email} ID: {profile.ig} {profile.role}
+          </Text>
+          </>
+        ):null
+      }
       <Button title="About us" onPress={goToAbout} />
     </View>
   );

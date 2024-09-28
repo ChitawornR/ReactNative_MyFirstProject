@@ -1,10 +1,17 @@
 import "react-native-gesture-handler";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { HeaderButtonsProvider } from "react-navigation-header-buttons";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+// provider
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import { store } from "./redux-toolkit/store";
+import { useAppSelector, useAppDispatch } from "./redux-toolkit/hooks";
+import { selectAuthState, setIsLoading, setIsLogin, setProfile } from "./auth/auth-slice";
+import { getProfile } from "./services/auth-servise";
 
 // Screen
 import HomeScreen from "./screens/HomeScreen";
@@ -85,35 +92,73 @@ function LoginStackScreen() {
 }
 
 const App = (): React.JSX.Element => {
-  const [isLogin] = useState(false);
+  // use useAppSelector for call state from store
+  const { isLogin, isLoading } = useAppSelector(selectAuthState);
+  const dispath = useAppDispatch();
+
+  const chkLogin = async () => {
+    try {
+      dispath(setIsLoading(true));
+      const response = await getProfile();
+      if (response?.data.data.user) {
+        dispath(setProfile(response.data.data.user))
+        dispath(setIsLogin(true));
+      } else {
+        dispath(setIsLogin(false));
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispath(setIsLoading(false))
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      chkLogin();
+    }, [])
+  );
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="blue" />
+      </View>
+    );
+  }
 
   return (
     <>
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <HeaderButtonsProvider stackType="native">
-            {isLogin ? (
-              <Drawer.Navigator
-                screenOptions={{ headerShown: false }}
-                drawerContent={(props) => <MenuScreen {...props} />}
-              >
-                <Drawer.Screen name="HomeStack" component={HomeStackScreen} />
-                <Drawer.Screen
-                  name="ProductStack"
-                  component={ProductStackScreen}
-                />
-              </Drawer.Navigator>
-            ) : (
-              <LoginStackScreen />
-            )}
-          </HeaderButtonsProvider>
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <HeaderButtonsProvider stackType="native">
+        {isLogin ? (
+          <Drawer.Navigator
+            screenOptions={{ headerShown: false }}
+            drawerContent={(props) => <MenuScreen {...props} />}
+          >
+            <Drawer.Screen name="HomeStack" component={HomeStackScreen} />
+            <Drawer.Screen name="ProductStack" component={ProductStackScreen} />
+          </Drawer.Navigator>
+        ) : (
+          <LoginStackScreen />
+        )}
+      </HeaderButtonsProvider>
       <Toast />
     </>
   );
 };
 
-export default App;
+const AppWrapper = () => {
+  return (
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <App />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
+  );
+};
+
+export default AppWrapper;
 
 const styles = StyleSheet.create({});
