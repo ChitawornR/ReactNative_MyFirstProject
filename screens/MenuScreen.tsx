@@ -19,7 +19,7 @@ const MenuScreen = ({ navigation }: any): React.JSX.Element => {
         placement="center"
       />
       {/* HOME ITEM */}
-      <ListItem onPress={()=>{navigation.navigate('HomeStack')}}>
+      <ListItem onPress={()=>{navigation.navigate('Home')}}>
         <Icon name="home" type="material-community" color="grey" />
         <ListItem.Content>
           <ListItem.Title>หน้าหลัก</ListItem.Title>
